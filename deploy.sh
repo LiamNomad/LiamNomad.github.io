@@ -3,6 +3,9 @@
 echo "🚀 Building your website..."
 npm run build
 
+echo "✅ Adding .nojekyll to skip Jekyll processing..."
+touch dist/.nojekyll
+
 echo "🧹 Cleaning up old /docs folder..."
 rm -rf docs
 
@@ -13,9 +16,9 @@ echo "📄 Staging changes..."
 git add docs
 
 echo "✅ Committing..."
-git commit -m "Deploy latest version"
+git commit -m "Deploy latest build with .nojekyll"
 
 echo "⬆️ Pushing to GitHub..."
 git push origin main
 
-echo "🎉 Deployment complete! Visit https://liamnomad.github.io"
+echo "🎉 Deployment complete! Your website should be live at https://liamnomad.github.io"
