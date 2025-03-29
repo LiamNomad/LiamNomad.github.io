@@ -9,7 +9,7 @@ export default function App() {
             const postFiles = ['best-practices.md', 'optimizing-costs.md'];
             const loadedPosts = await Promise.all(
                 postFiles.map(async (file) => {
-                    const res = await fetch(`/posts/${file}`);
+                    const res = await fetch(`${import.meta.env.BASE_URL}posts/${file}`);
                     const content = await res.text();
                     return {
                         title: file.replace('.md', '').replace(/-/g, ' '),
