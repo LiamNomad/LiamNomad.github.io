@@ -1,23 +1,29 @@
 /* --- CSS Variables --- */
+/* --- CSS Variables --- */
 :root {
-    --primary-color: #007bff; /* Example blue */
-    --secondary-color: #6c757d; /* Example gray */
-    --accent-color: #17a2b8; /* Example teal */
-    --bg-color: #ffffff; /* White background */
-    --surface-color: #f8f9fa; /* Light gray for cards/sections */
-    --text-color: #343a40; /* Dark gray text */
-    --heading-color: #212529; /* Slightly darker for headings */
-    --border-color: #dee2e6;
+
+    --primary-color: #34568B; /* Deeper blue */
+    --secondary-color: #6c757d; /* Keep gray or adjust */
+    --accent-color: #FF6F61; /* Coral accent */
+    --bg-color: #ffffff;
+    --surface-color: #f8f9fa;
+    --text-color: #495057; /* Slightly softer dark gray */
+    --heading-color: #212529;
+    --border-color: #e9ecef; /* Lighter border */
     --link-color: var(--primary-color);
-    --link-hover-color: #0056b3; /* Darker blue */
+    --link-hover-color: #2a4365; /* Darker primary */
 
-    --font-primary: 'Poppins', sans-serif; /* Example: Use Google Fonts */
-    --font-secondary: 'Roboto', sans-serif; /* Example: Use Google Fonts */
+    /* --- Keep or adjust fonts --- */
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Roboto', sans-serif;
 
+    /* --- Keep or adjust layout vars --- */
     --header-height: 70px;
-    --border-radius: 5px;
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --transition-speed: 0.3s ease;
+    --border-radius: 6px; /* Slightly rounder */
+    /* --- Softer Shadow --- */
+    --box-shadow: 0 3px 5px rgba(0, 0, 0, 0.07);
+    --box-shadow-hover: 0 6px 10px rgba(0, 0, 0, 0.1); /* More pronounced on hover */
+    --transition-speed: 0.25s ease-in-out; /* Slightly faster transition */
 }
 
 /* --- Google Fonts Import (Example) --- */
@@ -40,10 +46,11 @@ html {
 
 body {
     font-family: var(--font-primary);
+    font-weight: 400; /* Explicitly set base weight */
     color: var(--text-color);
     background-color: var(--bg-color);
-    line-height: 1.6;
-    padding-top: var(--header-height); /* Prevent content from hiding under fixed header */
+    line-height: 1.7; /* Slightly more line spacing */
+    padding-top: var(--header-height);
 }
 
 /* --- Layout Container --- */
@@ -58,18 +65,27 @@ body {
 
 /* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-secondary); /* Use secondary font for headings */
+    font-family: var(--font-secondary);
+    font-weight: 700; /* Bolder headings */
     color: var(--heading-color);
-    margin-bottom: 0.75em;
-    line-height: 1.2;
+    margin-top: 1.5em; /* Add some space above headings */
+    margin-bottom: 0.8em; /* Adjust space below headings */
+    line-height: 1.3; /* Tighter line height for headings */
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
+/* Reset margin for first heading in a section */
+section > h2:first-child,
+section > .container > h2:first-child {
+    margin-top: 0;
+}
+
+
+h1 { font-size: 2.8rem; margin-bottom: 0.5em;} /* Larger H1 */
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.6rem; }
 
 p {
-    margin-bottom: 1em;
+    margin-bottom: 1.2em; /* Slightly more space below paragraphs */
 }
 
 a {
@@ -96,33 +112,43 @@ ul {
 /* --- Buttons --- */
 .btn {
     display: inline-block;
-    padding: 0.75em 1.5em;
     border: 1px solid transparent;
-    border-radius: var(--border-radius);
-    font-weight: 500;
     text-align: center;
     cursor: pointer;
-    transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
+
     background-color: var(--primary-color);
     color: #fff;
     text-decoration: none; /* Ensure buttons don't get underlined */
     margin: 5px; /* Add some space around buttons */
+
+    padding: 0.7em 1.6em; /* Adjust padding */
+    border-radius: var(--border-radius); /* Use variable */
+    font-weight: 500; /* Ensure weight is set */
+    transition: all var(--transition-speed); /* Transition all properties */
+    box-shadow: 0 2px 3px rgba(0,0,0,0.08); /* Subtle shadow on buttons */
 }
 
 .btn:hover, .btn:focus {
     background-color: var(--link-hover-color);
     color: #fff;
     text-decoration: none;
+    transform: translateY(-2px); /* Slight lift on hover/focus */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.12); /* Enhance shadow */
 }
 
 .btn-secondary {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
+    background-color: var(--surface-color); /* Lighter secondary */
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    box-shadow: none; /* No shadow initially for secondary */
 }
 
 .btn-secondary:hover, .btn-secondary:focus {
-    background-color: #5a6268; /* Darker gray */
-    border-color: #5a6268;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 
@@ -138,6 +164,7 @@ ul {
     z-index: 1000; /* Ensure header stays on top */
     display: flex;
     align-items: center;
+    border-bottom: 1px solid var(--border-color); /* Subtle bottom border */
 }
 
 .site-header .container {
@@ -180,13 +207,13 @@ ul {
     content: '';
     position: absolute;
     width: 100%;
-    height: 2px;
-    bottom: -2px;
     left: 0;
-    background-color: var(--primary-color);
     transform: scaleX(0);
     transform-origin: bottom right;
-    transition: transform var(--transition-speed);
+    bottom: -4px; /* Adjust position */
+    height: 2px;
+    background-color: var(--accent-color); /* Use accent color for underline */
+    transition: transform var(--transition-speed) ease-out; /* Smoother ease */
 }
 
 .main-nav a:hover::after,
@@ -243,16 +270,16 @@ section h2 {
 .skills-list li {
     background-color: var(--bg-color);
     padding: 10px 20px;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color); /* Use variable */
     border-radius: var(--border-radius);
     font-weight: 500;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: var(--box-shadow); /* Use variable */
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 .skills-list li:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--box-shadow);
+    transform: translateY(-4px); /* Slightly more lift */
+    box-shadow: var(--box-shadow-hover); /* Use hover shadow variable */
 }
 
 /* --- Projects Section --- */
@@ -261,6 +288,9 @@ section h2 {
     /* Create responsive columns: 1 on small, 2 on medium, 3 on large */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px; /* Space between project cards */
+    border: 1px solid var(--border-color); /* Add subtle border */
+    box-shadow: var(--box-shadow); /* Use variable */
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 .project-card {
@@ -271,11 +301,12 @@ section h2 {
     display: flex;
     flex-direction: column; /* Stack content vertically */
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    border: 1px solid var(--border-color); /* Add subtle border */
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px); /* More lift for cards */
+    box-shadow: var(--box-shadow-hover); /* Use hover shadow variable */
 }
 
 .project-card img {
@@ -303,6 +334,7 @@ section h2 {
     display: flex;
     flex-wrap: wrap; /* Allow buttons to wrap on small screens */
     gap: 10px;
+    border-top: 1px solid var(--border-color); /* Use variable */
 }
 
 /* --- Contact Section --- */
