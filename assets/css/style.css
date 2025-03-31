@@ -1,9 +1,368 @@
-body {
-    font-family: sans-serif;
-    line-height: 1.6;
-    margin: 20px;
+/* --- CSS Variables --- */
+:root {
+    --primary-color: #007bff; /* Example blue */
+    --secondary-color: #6c757d; /* Example gray */
+    --accent-color: #17a2b8; /* Example teal */
+    --bg-color: #ffffff; /* White background */
+    --surface-color: #f8f9fa; /* Light gray for cards/sections */
+    --text-color: #343a40; /* Dark gray text */
+    --heading-color: #212529; /* Slightly darker for headings */
+    --border-color: #dee2e6;
+    --link-color: var(--primary-color);
+    --link-hover-color: #0056b3; /* Darker blue */
+
+    --font-primary: 'Poppins', sans-serif; /* Example: Use Google Fonts */
+    --font-secondary: 'Roboto', sans-serif; /* Example: Use Google Fonts */
+
+    --header-height: 70px;
+    --border-radius: 5px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s ease;
 }
 
-header h1 {
-    color: #333;
+/* --- Google Fonts Import (Example) --- */
+/* Add this if you want to use Poppins and Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;700&display=swap');
+
+/* --- Basic Reset & Defaults --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
+    font-size: 16px; /* Base font size */
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+    padding-top: var(--header-height); /* Prevent content from hiding under fixed header */
+}
+
+/* --- Layout Container --- */
+.container {
+    width: 90%;
+    max-width: 1100px; /* Adjust max width as needed */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-secondary); /* Use secondary font for headings */
+    color: var(--heading-color);
+    margin-bottom: 0.75em;
+    line-height: 1.2;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+p {
+    margin-bottom: 1em;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+a:hover, a:focus {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Remove extra space below images */
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-block;
+    padding: 0.75em 1.5em;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none; /* Ensure buttons don't get underlined */
+    margin: 5px; /* Add some space around buttons */
+}
+
+.btn:hover, .btn:focus {
+    background-color: var(--link-hover-color);
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-secondary:hover, .btn-secondary:focus {
+    background-color: #5a6268; /* Darker gray */
+    border-color: #5a6268;
+}
+
+
+/* --- Header --- */
+.site-header {
+    background-color: var(--bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: fixed; /* Make header sticky */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    z-index: 1000; /* Ensure header stays on top */
+    display: flex;
+    align-items: center;
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ensure container takes full width inside header */
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--heading-color);
+    text-decoration: none;
+}
+.logo a:hover, .logo a:focus {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 20px; /* Space between nav items */
+}
+
+.main-nav a {
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+    text-decoration: none;
+}
+
+.main-nav a:hover, .main-nav a:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* Add underline effect on hover/focus for nav links */
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform var(--transition-speed);
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+
+/* --- Section Styling --- */
+main section {
+    padding: 60px 0; /* Vertical padding for sections */
+}
+
+main section:nth-of-type(even) {
+    background-color: var(--surface-color); /* Alternate background color */
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 40px; /* Space below section titles */
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    text-align: center;
+    padding: 80px 0; /* More padding for hero */
+    background-color: var(--surface-color); /* Or add a gradient/image */
+}
+
+.hero-section .subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+
+/* --- About Section --- */
+.about-section .profile-pic {
+    /* Style profile picture if you add one */
+    max-width: 200px;
+    border-radius: 50%;
+    margin: 20px auto;
+    display: block;
+}
+
+/* --- Skills Section --- */
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* Space between skill items */
+}
+
+.skills-list li {
+    background-color: var(--bg-color);
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.skills-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+}
+
+/* --- Projects Section --- */
+.project-grid {
+    display: grid;
+    /* Create responsive columns: 1 on small, 2 on medium, 3 on large */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; /* Space between project cards */
+}
+
+.project-card {
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden; /* Ensure image corners are rounded if needed */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover; /* Crop image nicely */
+}
+
+.project-card h3 {
+    padding: 20px 20px 10px 20px;
+    margin-bottom: 0.5em;
+}
+
+.project-card p {
+    padding: 0 20px 20px 20px;
+    flex-grow: 1; /* Allow description to take available space */
+    margin-bottom: 0; /* Reset paragraph margin */
+}
+
+.project-links {
+    padding: 0 20px 20px 20px;
+    margin-top: auto; /* Push links to the bottom */
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+    gap: 10px;
+}
+
+/* --- Contact Section --- */
+.contact-section {
+    text-align: center;
+}
+
+/* --- Footer --- */
+.site-footer {
+    background-color: var(--heading-color);
+    color: var(--surface-color);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px; /* Space above footer */
+}
+
+.site-footer p {
+    margin-bottom: 0;
+}
+
+/* --- Basic Responsiveness (Example) --- */
+@media (max-width: 768px) {
+    html {
+        font-size: 15px; /* Slightly smaller base font on smaller screens */
+    }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+
+    .site-header .container {
+        flex-direction: column; /* Stack logo and nav on small screens */
+        /* You'll need JS to toggle the nav visibility */
+    }
+
+    .main-nav {
+        margin-top: 10px;
+        /* Hide nav by default on mobile - requires JS toggle */
+        /* display: none; */
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    body {
+        padding-top: 0; /* Remove padding if header isn't fixed or changes height */
+    }
+    .site-header {
+        position: static; /* Or adjust fixed header for mobile */
+        height: auto;
+        padding: 15px 0;
+    }
+
+    main section {
+        padding: 40px 0;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr; /* Stack projects on small screens */
+    }
 }
