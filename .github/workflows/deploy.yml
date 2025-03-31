@@ -1,0 +1,52 @@
+name: Deploy Static Website to Pages
+
+# Run workflow on pushes to the main branch
+on:
+  push:
+    branches:
+      - main  # Or 'master' if that's your default branch
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Output the deployed URL
+
+    steps:
+      - name: Checkout repository # Step 1: Get your code
+        uses: actions/checkout@v4 # Use the standard checkout action
+
+      # --- Optional Build Step ---
+      # If you were using a static site generator (like Hugo, Eleventy)
+      # or needed to compile SASS/minify JS, you would add steps here.
+      # For plain HTML/CSS/JS, you often don't need a build step.
+      # Example (if you had a build script in package.json):
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '18' # Specify your Node version
+      # - name: Install dependencies
+      #   run: npm install
+      # - name: Build project
+      #   run: npm run build # Assumes your build output is in a 'dist' folder
+
+      - name: Configure GitHub Pages # Step 2: Prepare Pages settings
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact # Step 3: Upload site files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload the entire repository root if no build step
+          # If you HAVE a build step outputting to 'dist', change path to './dist'
+          path: '.'
+
+      - name: Deploy to GitHub Pages # Step 4: Deploy the uploaded artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
