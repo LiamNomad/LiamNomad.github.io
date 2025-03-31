@@ -36,10 +36,6 @@ export default function App() {
                         <h3 className="text-xl font-bold">Real-Time Data Pipeline</h3>
                         <p className="mt-2">Built a streaming pipeline using Kafka, Spark Streaming, and Snowflake to ingest and process real-time events. Reduced reporting delay from hours to minutes.</p>
                     </div>
-                    <div className="rounded-2xl shadow p-4 border">
-                        <h3 className="text-xl font-bold">Cost Optimization on Snowflake</h3>
-                        <p className="mt-2">Now I'm working on implementing a system to detect idle virtual warehouses and automatically suspend them, reducing compute costs by 40%.</p>
-                    </div>
                 </div>
             </section>
 
